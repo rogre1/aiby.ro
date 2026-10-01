@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Getting Started with Claude Code | aiby.ro</title>
+<meta name="description" content="A short, friendly guide for people who have never used Claude Code: setup, key terms, teaching Claude who you are, skills and more. Step by step, no coding.">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Getting Started with Claude Code | aiby.ro">
+<meta property="og:description" content="Step by step, no coding needed: from install to Claude actually doing the work for you.">
+<meta property="og:url" content="https://rogre1.github.io/aiby.ro/claude-code-start/">
+<meta property="og:image" content="https://rogre1.github.io/aiby.ro/claude-code-start/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cream:#FBF9F4;--cream-deep:#F1EFE7;--mint:#F0F3E8;
+  --forest:#333E27;--forest-deep:#20261A;--forest-tile:#2A3122;
+  --olive:#788C5D;--olive-bright:#8BA36B;--leaf:#B7C29F;
+  --ink:#1B1D16;--ink-2:#5B5F52;--ink-3:#8A8672;
+  --ink-dark-1:#F1EFE7;--ink-dark-2:#B9BDA9;
+  --line:#E3E0D5;--coral:#D9785F;
+  --shadow-sm:0 10px 22px rgba(35,38,30,.10);
+  --shadow-md:0 12px 28px rgba(35,38,30,.16);
+  --r:22px;
+}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{font-family:'Heebo',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.7;font-size:17px;overflow-x:hidden}
+a{color:var(--olive);font-weight:600}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em;background:var(--cream-deep);border:1px solid var(--line);padding:.05em .4em;border-radius:6px;color:var(--forest)}
+b,strong{font-weight:700;color:var(--forest-deep)}
+
+/* wordmark */
+.wordmark{display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:var(--forest-deep);font-weight:800;font-size:1.35rem;letter-spacing:-.02em;line-height:1}
+.wordmark .mk{width:32px;height:32px;border-radius:50%;background:var(--forest);color:var(--cream);display:grid;place-items:center;font-size:.95rem;font-weight:800;position:relative}
+.wordmark .mk::after{content:"";position:absolute;right:3px;bottom:4px;width:7px;height:7px;border-radius:50%;background:var(--olive-bright)}
+.wordmark .dot{color:var(--olive)}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(251,249,244,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.hwrap{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px}
+.progress{flex:1;max-width:340px;display:flex;align-items:center;gap:10px;font-size:.82rem;color:var(--ink-2);font-weight:600;white-space:nowrap}
+.bar{flex:1;height:8px;background:var(--cream-deep);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--olive),var(--olive-bright));border-radius:99px;transition:width .4s}
+.os-switch{display:flex;background:var(--cream-deep);border:1px solid var(--line);border-radius:99px;padding:3px}
+.os-switch button{border:0;background:none;font:inherit;font-size:.8rem;font-weight:700;color:var(--ink-2);padding:5px 12px;border-radius:99px;cursor:pointer}
+.os-switch button[aria-pressed=true]{background:var(--forest);color:var(--cream)}
+
+.from-banner{display:none;background:var(--forest);color:var(--cream);text-align:center;padding:10px 16px;font-size:.95rem}
+.from-banner a{color:var(--leaf)}
+.from-banner.show{display:block}
+
+/* layout */
+.layout{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:230px 1fr;gap:48px;padding:0 16px}
+nav.toc{position:sticky;top:90px;align-self:start;padding-top:40px}
+nav.toc p{font-size:.78rem;font-weight:800;color:var(--ink-3);letter-spacing:.06em;margin-bottom:10px;text-transform:uppercase}
+nav.toc a{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink-2);font-weight:500;font-size:.92rem;padding:6px 12px;border-radius:12px;border-left:3px solid transparent}
+nav.toc a:hover{background:var(--mint)}
+nav.toc a.active{background:var(--mint);color:var(--forest-deep);font-weight:700;border-left-color:var(--olive)}
+nav.toc a .tick{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--leaf);flex:none;display:grid;place-items:center;font-size:10px;color:#fff}
+nav.toc a.done .tick{background:var(--olive);border-color:var(--olive)}
+main{min-width:0;padding-bottom:60px}
+
+/* hero */
+.hero{padding:56px 0 28px}
+.eyebrow{display:inline-block;background:var(--mint);color:var(--olive);border:1px solid var(--leaf);font-weight:700;font-size:.85rem;padding:4px 14px;border-radius:99px;margin-bottom:16px}
+h1{font-size:clamp(2rem,5.4vw,3.3rem);line-height:1.12;font-weight:900;color:var(--forest-deep);letter-spacing:-.02em}
+h1 em{font-style:normal;color:var(--olive)}
+.lead{font-size:1.15rem;color:var(--ink-2);margin-top:14px;max-width:640px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.chip{background:#fff;border:1px solid var(--line);border-radius:99px;padding:6px 14px;font-size:.88rem;font-weight:600;color:var(--ink-2);box-shadow:var(--shadow-sm)}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--forest);color:var(--cream);border:0;font:inherit;font-weight:700;padding:12px 24px;border-radius:99px;text-decoration:none;cursor:pointer;box-shadow:var(--shadow-sm);transition:transform .15s,background .2s}
+.btn:hover{transform:translateY(-2px);background:var(--forest-deep)}
+.btn.ghost{background:transparent;color:var(--forest);border:1.5px solid var(--forest);box-shadow:none}
+.hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+
+/* sections */
+section.step{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:34px 30px;margin-top:22px;box-shadow:var(--shadow-sm)}
+.step-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:14px}
+.num{flex:none;width:46px;height:46px;border-radius:50%;background:var(--mint);border:1.5px solid var(--leaf);color:var(--forest);display:grid;place-items:center;font-weight:900;font-size:1.05rem}
+h2{font-size:clamp(1.4rem,3.4vw,1.85rem);line-height:1.25;font-weight:800;color:var(--forest-deep);letter-spacing:-.01em}
+.step-head p{color:var(--ink-3);font-size:.95rem;margin-top:2px}
+h3{font-size:1.15rem;font-weight:800;color:var(--forest);margin:26px 0 8px}
+section p+p{margin-top:10px}
+ol.steps,ul.dots{margin:12px 0 0;list-style:none;counter-reset:s}
+ol.steps li{counter-increment:s;position:relative;padding-left:40px;margin-bottom:12px}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:28px;height:28px;border-radius:50%;background:var(--forest);color:var(--cream);font-weight:800;font-size:.85rem;display:grid;place-items:center}
+ul.dots li{position:relative;padding-left:22px;margin-bottom:8px}
+ul.dots li::before{content:"";position:absolute;left:4px;top:.7em;width:7px;height:7px;border-radius:50%;background:var(--olive)}
+.done-row{margin-top:26px;padding-top:20px;border-top:1px dashed var(--line);display:flex}
+.done-btn{display:inline-flex;align-items:center;gap:10px;background:var(--cream);border:1.5px solid var(--leaf);color:var(--forest);font:inherit;font-weight:700;padding:10px 20px;border-radius:99px;cursor:pointer;transition:all .2s}
+.done-btn .box{width:20px;height:20px;border-radius:6px;border:2px solid var(--olive);display:grid;place-items:center;font-size:13px;color:#fff}
+.done-btn[aria-pressed=true]{background:var(--olive);border-color:var(--olive);color:#fff}
+.done-btn[aria-pressed=true] .box{background:#fff;color:var(--olive);border-color:#fff}
+
+.note{border-radius:16px;padding:16px 18px;margin-top:18px;display:flex;gap:12px;font-size:.97rem}
+.note .ic{flex:none;font-size:1.25rem;line-height:1.4}
+.note.tip{background:var(--mint);border:1px solid var(--leaf)}
+.note.warn{background:#FBEFE9;border:1px solid #EFC9BB}
+.note.why{background:var(--cream);border:1px solid var(--line)}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.compare div{border-radius:16px;padding:18px;border:1px solid var(--line)}
+.compare .a{background:var(--cream)}
+.compare .b{background:var(--forest);color:var(--ink-dark-1);border-color:var(--forest)}
+.compare .b b{color:#fff}
+.compare h4{font-size:1rem;font-weight:800;margin-bottom:6px}
+.compare .b h4{color:var(--leaf)}
+
+.prompt{position:relative;background:var(--forest-deep);color:var(--ink-dark-1);border-radius:16px;padding:18px;margin-top:14px;white-space:pre-wrap;font-size:.95rem;line-height:1.75;border:1px solid var(--forest-tile)}
+.prompt .lbl{display:block;font-size:.75rem;font-weight:800;color:var(--leaf);letter-spacing:.05em;margin-bottom:6px;padding-right:80px;text-transform:uppercase}
+.copy{position:absolute;top:12px;right:12px;background:var(--olive);color:#fff;border:0;font:inherit;font-size:.78rem;font-weight:700;padding:5px 12px;border-radius:99px;cursor:pointer}
+.copy.ok{background:var(--leaf);color:var(--forest-deep)}
+
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tabs button{font:inherit;font-weight:700;font-size:.9rem;padding:8px 16px;border-radius:99px;border:1.5px solid var(--line);background:var(--cream);color:var(--ink-2);cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--forest);border-color:var(--forest);color:var(--cream)}
+.tabpanel[hidden]{display:none}
+
+.tbl{width:100%;border-collapse:separate;border-spacing:0;margin-top:16px;font-size:.93rem;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.tbl th{background:var(--forest);color:var(--cream);font-weight:700;padding:10px 12px;text-align:left}
+.tbl td{padding:11px 12px;border-top:1px solid var(--line);vertical-align:top}
+.tbl tr:nth-child(even) td{background:var(--cream)}
+.tbl td:first-child{font-weight:700;color:var(--forest);white-space:nowrap}
+.tbl-wrap{overflow-x:auto}
+
+details.acc{border:1px solid var(--line);border-radius:16px;margin-top:12px;background:var(--cream);overflow:hidden}
+details.acc summary{list-style:none;cursor:pointer;padding:14px 18px;font-weight:700;color:var(--forest-deep);display:flex;justify-content:space-between;align-items:center;gap:10px}
+details.acc summary::-webkit-details-marker{display:none}
+details.acc summary::after{content:"+";font-size:1.3rem;color:var(--olive);font-weight:500;transition:transform .2s}
+details.acc[open] summary::after{transform:rotate(45deg)}
+details.acc .in{padding:0 18px 16px;color:var(--ink-2)}
+details.acc .in b{color:var(--forest)}
+
+.gloss{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:16px}
+.gloss details{background:var(--cream);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.gloss summary{cursor:pointer;list-style:none;font-weight:800;color:var(--forest-deep);display:flex;justify-content:space-between;align-items:center;gap:8px}
+.gloss summary::-webkit-details-marker{display:none}
+.gloss summary::after{content:"+";color:var(--olive);font-weight:500}
+.gloss details[open] summary::after{content:"−"}
+.gloss p{margin-top:8px;font-size:.93rem;color:var(--ink-2)}
+dfn{font-style:normal;border-bottom:2px dotted var(--olive);cursor:help}
+.tip-pop{position:absolute;z-index:80;max-width:280px;background:var(--forest-deep);color:var(--ink-dark-1);font-size:.85rem;line-height:1.55;padding:10px 14px;border-radius:12px;box-shadow:var(--shadow-md);pointer-events:none;opacity:0;transition:opacity .15s}
+.tip-pop.show{opacity:1}
+
+/* UI mockups */
+figure.mock{margin:22px 0 4px}
+.win{background:#fff;border:1px solid #DDD9CC;border-radius:14px;box-shadow:var(--shadow-md);overflow:hidden;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:13px;color:#2b2b28;position:relative}
+.win-bar{display:flex;align-items:center;gap:7px;padding:9px 12px;background:#F4F2EC;border-bottom:1px solid #E6E2D6}
+.win-bar i{width:11px;height:11px;border-radius:50%}
+.win-bar i:nth-child(1){background:#EC6A5E}.win-bar i:nth-child(2){background:#F4BF4F}.win-bar i:nth-child(3){background:#61C554}
+.win-bar span{margin-left:10px;color:#8a8672;font-size:12px}
+.win-body{padding:16px;position:relative}
+.ui-tabs{display:inline-flex;background:#EFECE3;border-radius:10px;padding:3px;gap:2px}
+.ui-tabs span{padding:6px 16px;border-radius:8px;color:#6b6a62;font-weight:600}
+.ui-tabs span.on{background:#fff;color:#1b1d16;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.ui-row{display:flex;gap:14px}
+.ui-side{width:150px;flex:none;border-right:1px solid #ECE8DD;padding-right:12px;color:#6b6a62;font-size:12px}
+.ui-side div{padding:6px 8px;border-radius:7px;margin-bottom:3px}
+.ui-side .cur{background:#F0F3E8;color:#333E27;font-weight:600}
+.ui-main{flex:1;min-width:0}
+.ui-input{border:1px solid #DDD9CC;border-radius:14px;padding:12px;background:#FFFEFB}
+.ui-input .ph{color:#a6a394;min-height:34px}
+.ui-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px}
+.pill{display:inline-flex;align-items:center;gap:5px;border:1px solid #E1DDD0;border-radius:99px;padding:4px 10px;font-size:12px;color:#4a4a44;background:#fff;white-space:nowrap}
+.pill.plus{width:28px;height:28px;padding:0;justify-content:center;font-size:16px}
+.send{margin-left:auto;width:30px;height:30px;border-radius:50%;background:#333E27;color:#fff;display:grid;place-items:center;font-size:14px}
+.menu{background:#fff;border:1px solid #DDD9CC;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.12);padding:6px;width:230px;font-size:12.5px}
+.menu div{padding:7px 10px;border-radius:8px;display:flex;justify-content:space-between;gap:8px}
+.menu div small{color:#9a978a}
+.menu .hl{background:#F0F3E8;color:#333E27;font-weight:600}
+.menu .sep{height:1px;background:#EEE;padding:0;margin:4px 0}
+.card-perm{border:1px solid #E1DDD0;border-radius:12px;padding:12px 14px;background:#FFFEFB}
+.card-perm .t{font-weight:600;margin-bottom:6px}
+.card-perm pre{background:#F6F4EE;border-radius:8px;padding:8px 10px;font-size:12px;margin:6px 0 10px;white-space:pre-wrap;color:#4f7a2b;font-family:ui-monospace,Menlo,monospace}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap}
+.ub{border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;border:1px solid #DDD9CC;background:#fff}
+.ub.pri{background:#333E27;color:#fff;border-color:#333E27}
+.msg{border-radius:12px;padding:9px 12px;margin-bottom:8px;max-width:85%}
+.msg.me{background:#F0F3E8;margin-left:auto}
+.msg.cl{background:#fff;border:1px solid #ECE8DD}
+.slash-chip{display:inline-block;background:#E5ECD7;color:#333E27;border-radius:6px;padding:1px 6px;font-weight:600}
+.file{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.7;white-space:pre-wrap;color:#333}
+.file .h{color:#788C5D;font-weight:700}
+.finder{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;text-align:center;font-size:11.5px;color:#4a4a44}
+.finder div{padding:8px 4px;border-radius:10px}
+.finder .ico{font-size:30px;line-height:1.2}
+.finder .sel{background:#F0F3E8;outline:2px solid #B7C29F}
+.pt{position:relative}
+.pin{position:absolute;top:-13px;right:-13px;width:26px;height:26px;border-radius:50%;background:var(--coral);color:#fff;font-weight:800;font-size:13px;display:grid;place-items:center;box-shadow:0 0 0 4px rgba(217,120,95,.25);font-family:'Heebo',sans-serif;z-index:3}
+figcaption{margin-top:14px;font-size:.93rem;color:var(--ink-2)}
+figcaption ol{list-style:none;counter-reset:c;display:grid;gap:6px}
+figcaption li{counter-increment:c;position:relative;padding-left:32px}
+figcaption li::before{content:counter(c);position:absolute;left:0;top:1px;width:22px;height:22px;border-radius:50%;background:var(--coral);color:#fff;font-weight:800;font-size:.75rem;display:grid;place-items:center}
+.mock-note{font-size:.78rem;color:var(--ink-3);margin-top:6px}
+
+body.os-win .mac-only{display:none!important}
+body:not(.os-win) .win-only{display:none!important}
+.os-tag{display:none}
+
+.final{background:var(--forest);color:var(--ink-dark-1);border-radius:var(--r);padding:40px 30px;margin-top:22px;text-align:center}
+.final h2{color:#fff}
+.final p{color:var(--ink-dark-2);max-width:560px;margin:10px auto 0}
+.final .btn{background:var(--leaf);color:var(--forest-deep);margin-top:20px}
+footer{border-top:1px solid var(--line);padding:28px 16px;text-align:center;color:var(--ink-3);font-size:.88rem}
+footer .wordmark{margin-bottom:10px;font-size:1.15rem}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr;gap:0}
+  nav.toc{position:static;padding-top:18px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+  nav.toc::-webkit-scrollbar{display:none}
+  nav.toc p{display:none}
+  nav.toc a{flex:none;border:1px solid var(--line);border-radius:99px;background:#fff;padding:5px 12px;font-size:.84rem}
+  nav.toc a.active{border-left-color:var(--line)}
+  .progress span{display:none}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .wordmark{font-size:1.15rem}.wordmark .mk{width:28px;height:28px}
+  section.step{padding:26px 18px}
+  .compare{grid-template-columns:1fr}
+  .hero{padding-top:34px}
+  .ui-side{display:none}
+  .win{font-size:12px}
+  .final{padding:32px 18px}
+}
+
+@media print{
+  @page{size:A4;margin:14mm 12mm}
+  body{background:#fff;font-size:12.5pt}
+  header,.from-banner,nav.toc,.done-row,.copy,.tabs,.hero-cta,.os-switch,.tip-pop{display:none!important}
+  .layout{display:block;padding:0}
+  section.step{box-shadow:none;padding:22px 20px;margin-top:14px}
+  .step-head,figure.mock,.prompt,.note,.tbl,.compare{break-inside:avoid}
+  h2,h3{break-after:avoid}
+  .tabpanel[hidden]{display:block!important}
+  .tabpanel::before{content:attr(data-title);display:block;font-weight:800;color:var(--olive);margin-top:10px}
+  .win,.chip{box-shadow:none}
+  body .mac-only,body .win-only{display:inline!important}
+  div.mac-only,div.win-only,p.mac-only,p.win-only,li.mac-only,li.win-only{display:block!important}
+  .os-tag{display:inline;font-weight:800;color:var(--olive)}
+  .print-only{display:block!important}
+  .print-logo{display:inline-flex!important;margin-bottom:18px}
+  .hero{padding-top:6px}
+  details.acc summary::after,.gloss summary::after{display:none}
+  a{text-decoration:none}
+}
+.print-only,.print-logo{display:none}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hwrap">
+    <a class="wordmark" href="../" aria-label="aiby.ro guides home"><span class="mk">ai</span><span>aiby<span class="dot">.</span>ro</span></a>
+    <div class="progress" aria-live="polite"><span id="progText">0 of 6 steps</span><div class="bar"><i id="progBar"></i></div></div>
+    <div class="os-switch" role="group" aria-label="Operating system">
+      <button type="button" data-os="mac" aria-pressed="true">Mac</button>
+      <button type="button" data-os="win" aria-pressed="false">Windows</button>
+    </div>
+  </div>
+</header>
+<div class="from-banner" id="fromBanner">Came here from a prompt? Go through the guide, then <a id="fromLink" href="#">head back to the prompt →</a></div>
+
+<div class="layout">
+<nav class="toc" id="toc" aria-label="Contents">
+  <p>Contents</p>
+  <a href="#what" data-step="what"><span class="tick">✓</span>What is it</a>
+  <a href="#need" data-step="need"><span class="tick">✓</span>What you need</a>
+  <a href="#install" data-step="install"><span class="tick">✓</span>Install</a>
+  <a href="#folder" data-step="folder"><span class="tick">✓</span>Your work folder</a>
+  <a href="#first" data-step="first"><span class="tick">✓</span>First chat</a>
+  <a href="#me" data-step="me"><span class="tick">✓</span>Teach it about you</a>
+  <a href="#skills">Skills</a>
+  <a href="#more">Good to know</a>
+  <a href="#glossary">Glossary</a>
+  <a href="#tips">Tips</a>
+</nav>
+
+<main id="top">
+
+<section class="hero">
+  <span class="wordmark print-logo"><span class="mk">ai</span><span>aiby<span class="dot">.</span>ro</span></span><br>
+  <span class="eyebrow">Beginner's guide · aiby.ro</span>
+  <h1>Getting started with <em>Claude Code</em>, no coding required</h1>
+  <p class="lead">Got a prompt from me and no idea where to paste it? You're in the right place. Six short steps, and you'll have an AI assistant that works on the files on your computer and actually knows you.</p>
+  <div class="hero-meta">
+    <span class="chip">⏱ About 20 minutes</span>
+    <span class="chip">💻 Mac or Windows</span>
+    <span class="chip">🙅‍♀️ No terminal, no code</span>
+  </div>
+  <div class="hero-cta">
+    <a class="btn" href="#what">Let's start</a>
+    <a class="btn ghost" href="claude-code-start.pdf" download>⬇ Download as PDF</a>
+  </div>
+  <p class="print-only" style="margin-top:14px;color:var(--ink-3)">Interactive version: rogre1.github.io/aiby.ro/claude-code-start</p>
+</section>
+
+<!-- 1 -->
+<section class="step" id="what" data-step>
+  <div class="step-head"><div class="num">1</div><div><h2>So what is Claude Code?</h2><p>One minute of context that saves an hour of confusion</p></div></div>
+  <p>You probably know Claude's chat: you ask, it answers, and you copy the answer somewhere else. <b>Claude Code is Claude with hands.</b> Instead of only answering, it <b>does the work</b>: it opens files on your computer, creates documents, organizes folders, builds landing pages, converts files and runs whole tasks for you from start to finish.</p>
+  <div class="compare">
+    <div class="a"><h4>💬 Regular chat</h4>"Write copy for my landing page"<br>→ You get text. You copy it, paste it and design it yourself.</div>
+    <div class="b"><h4>⚡ Claude Code</h4>"Build me a landing page using the logo in this folder"<br>→ <b>It builds the file</b>, adds the logo, opens a preview and fixes things based on your notes.</div>
+  </div>
+  <p style="margin-top:16px">And the best part: despite the name, <b>you don't need to know how to code.</b> You talk to it in plain English, like you would with a personal assistant.</p>
+  <div class="done-row"><button class="done-btn" type="button" aria-pressed="false"><span class="box">✓</span>Got it, next</button></div>
+</section>
+
+<!-- 2 -->
+<section class="step" id="need" data-step>
+  <div class="step-head"><div class="num">2</div><div><h2>What you need before you start</h2><p>Three things. That's it.</p></div></div>
+  <ul class="dots">
+    <li><b>A Mac or Windows computer.</b> You can check in from your phone later, but you start on a computer.</li>
+    <li><b>A paid Claude plan.</b> Claude Code doesn't work on the free plan. The basic plan, <b>Pro</b>, costs $20 a month ($17 a month if you pay yearly), and it's plenty to get started. If you use it a lot and keep hitting the usage limit, you can upgrade to <b>Max</b>.</li>
+    <li><b>One task that's been bugging you.</b> Seriously. The best way to learn is with a real task: clean up a folder, build a page, make sense of a spreadsheet.</li>
+  </ul>
+  <div class="note tip"><span class="ic">💡</span><div>Already paying for Claude chat? Great, it's <b>the same plan</b>. You don't pay twice.</div></div>
+  <div class="done-row"><button class="done-btn" type="button" aria-pressed="false"><span class="box">✓</span>I have a plan, next</button></div>
+</section>
+
+<!-- 3 -->
+<section class="step" id="install" data-step>
+  <div class="step-head"><div class="num">3</div><div><h2>Install the app</h2><p>No terminal, no commands. Just like any other app.</p></div></div>
+  <ol class="steps">
+    <li>Go to <a href="https://claude.ai/download" target="_blank" rel="noopener">claude.ai/download</a> and download the <span class="mac-only">Mac</span><span class="win-only">Windows</span> version.</li>
+    <li class="mac-only">Open the downloaded file and drag the Claude icon into your <b>Applications</b> folder.</li>
+    <li class="win-only">Open the installer you downloaded and approve it. It installs on its own.</li>
+    <li>Open Claude and sign in with the account that has your plan.</li>
+    <li>At the top you'll see three tabs: <b>Chat</b>, <b>Cowork</b> and <b>Code</b>. Click <b>Code</b>. You're in.</li>
+  </ol>
+  <figure class="mock" aria-label="Illustration: the app with the Code tab highlighted">
+    <div class="win">
+      <div class="win-bar"><i></i><i></i><i></i><span>Claude</span></div>
+      <div class="win-body" style="text-align:center;padding:22px 16px 26px">
+        <div class="ui-tabs"><span>Chat</span><span>Cowork</span><span class="on pt">Code<b class="pin">1</b></span></div>
+        <div style="margin-top:26px;font-size:20px;font-weight:600;color:#333E27">What should we build?</div>
+        <div class="ui-input" style="max-width:420px;margin:16px auto 0;text-align:left"><div class="ph">Describe a task…</div><div class="ui-tools"><span class="pill plus">+</span><span class="pill">📁 Select folder</span><span class="send">↑</span></div></div>
+      </div>
+    </div>
+    <figcaption><ol><li>The <b>Code</b> tab. This is where you use Claude Code. (Chat is the regular chat you already know.)</li></ol></figcaption>
+    <p class="mock-note">Illustration. The app gets updated from time to time, so small design details may look different.</p>
+  </figure>
+  <div class="note warn"><span class="ic">⚠️</span><div>Getting an error when you open the Code tab? It usually means you signed in with a free account. Sign out and sign back in with the account that has your plan.</div></div>
+  <div class="done-row"><button class="done-btn" type="button" aria-pressed="false"><span class="box">✓</span>Installed and open</button></div>
+</section>
+
+<!-- 4 -->
+<section class="step" id="folder" data-step>
+  <div class="step-head"><div class="num">4</div><div><h2>Pick a <dfn data-tip="The folder on your computer where Claude works. It only sees and changes what's inside it.">work folder</dfn></h2><p>The most important step nobody explains</p></div></div>
+  <p>Claude Code always works <b>inside one folder on your computer</b>. It can read, change and create anything in that folder. Anything outside it, it won't touch without asking. Think of it like giving an assistant the key to one room, not the whole house.</p>
+  <ol class="steps">
+    <li>Create a new folder <span class="mac-only">on your Desktop</span><span class="win-only">on your Desktop or in Documents</span> and call it something like <b>claude</b>.</li>
+    <li>Put the relevant stuff in it: your logo, a doc about your business, images, spreadsheets. <b>Copies only</b>, never the originals.</li>
+    <li>In the app, under the message box, click <b>Select folder</b> and choose that folder.</li>
+  </ol>
+  <figure class="mock" aria-label="Illustration: choosing a folder">
+    <div class="win">
+      <div class="win-bar"><i></i><i></i><i></i><span>Desktop</span></div>
+      <div class="win-body">
+        <div class="finder">
+          <div><div class="ico">📁</div>Photos 2024</div>
+          <div class="sel pt"><div class="ico">📁</div><b>claude</b><b class="pin">1</b></div>
+          <div><div class="ico">📄</div>invoices.pdf</div>
+          <div><div class="ico">📁</div>Documents</div>
+        </div>
+        <div style="border-top:1px solid #EEE;margin-top:12px;padding-top:10px;display:flex;justify-content:flex-end;gap:8px"><span class="ub">Cancel</span><span class="ub pri pt">Open<b class="pin">2</b></span></div>
+      </div>
+    </div>
+    <figcaption><ol><li>The folder you made just for Claude.</li><li>Click <b>Open</b>, and the folder name shows up next to the message box.</li></ol></figcaption>
+  </figure>
+  <div class="note why"><span class="ic">🧠</span><div><b>Why a separate folder?</b> So Claude doesn't get lost in thousands of unrelated files, and doesn't accidentally change something important. You can make one folder per project: one for content, one for your business, one for your website.</div></div>
+  <div class="done-row"><button class="done-btn" type="button" aria-pressed="false"><span class="box">✓</span>I have a folder</button></div>
+</section>
+
+<!-- 5 -->
+<section class="step" id="first" data-step>
+  <div class="step-head"><div class="num">5</div><div><h2>Your first chat</h2><p>What each button does, and what to do when an approval box pops up</p></div></div>
+  <p>Here's the message box. It looks like a regular chat, but it has a few buttons worth knowing:</p>
+  <figure class="mock" aria-label="Illustration: the message box and its buttons">
+    <div class="win">
+      <div class="win-bar"><i></i><i></i><i></i><span>Claude · Code</span></div>
+      <div class="win-body">
+        <div class="ui-row">
+          <div class="ui-side"><div>+ New session</div><div class="cur pt">Workshop landing page<b class="pin">1</b></div><div>Sort photos</div><div>Sales review</div><div style="margin-top:14px">⚙ Customize</div></div>
+          <div class="ui-main">
+            <div class="msg me">There's a logo and some text about the workshop in the folder</div><div class="msg cl">Great, I found both. What style do you like?</div>
+            <div class="ui-input"><div class="ph">Build me a landing page for the workshop…</div>
+              <div class="ui-tools"><span class="pill plus pt">+<b class="pin">2</b></span><span class="pill">💻 Local</span><span class="pill pt">📁 claude<b class="pin">3</b></span><span class="pill pt">Manual ▾<b class="pin">4</b></span><span class="pill">Model ▾</span><span class="send pt">↑<b class="pin">5</b></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <figcaption><ol>
+      <li><b>The sidebar</b>: every <dfn data-tip="One conversation with Claude Code. Each has its own history and folder.">session</dfn> (conversation) is saved here. You can go back to any of them and keep going.</li>
+      <li><b>The plus button</b>: attach files and images, run skills, connect Google and more. We'll get there.</li>
+      <li><b>The folder</b> you picked in the last step.</li>
+      <li><b>Permission mode</b>: how much freedom Claude gets. Explained right below.</li>
+      <li><b>Send</b>. While Claude is working, it turns into a stop button. You can stop it at any moment.</li>
+    </ol></figcaption>
+  </figure>
+
+  <h3>The approval box: don't panic</h3>
+  <p>Before Claude changes a file or runs an action, it <b>stops and asks</b>. It looks roughly like this:</p>
+  <figure class="mock" aria-label="Illustration: a permission request">
+    <div class="win">
+      <div class="win-body">
+        <div class="msg me">Make me a file with my to-do list for the week</div>
+        <div class="card-perm">
+          <div class="t">Claude wants to create <b>tasks.md</b></div>
+          <pre>+ # This week
++ - Film a new reel
++ - Reply to clients</pre>
+          <div class="btnrow"><span class="ub pri pt">Allow<b class="pin">1</b></span><span class="ub pt">Allow for this session<b class="pin">2</b></span><span class="ub">Deny</span></div>
+        </div>
+      </div>
+    </div>
+    <figcaption><ol><li><b>Allow</b>: approve this one action only.</li><li><b>Allow for this session</b>: approve this kind of action until the conversation ends, so it stops asking every time.</li></ol></figcaption>
+  </figure>
+  <div class="note tip"><span class="ic">✅</span><div><b>My rule:</b> read the one line telling you what it wants to do. Creating or editing files in your folder? Allow. Deleting something, or an action you don't understand? Click <b>Deny</b> and type "explain what this does first".</div></div>
+
+  <h3>Modes: how much freedom to give it</h3>
+  <p>Button number 4 sets the <dfn data-tip="The setting that decides whether Claude asks before every action or works on its own.">permission mode</dfn>:</p>
+  <div class="tbl-wrap"><table class="tbl">
+    <tr><th>Mode</th><th>What happens</th><th>When to use it</th></tr>
+    <tr><td>Manual</td><td>Asks before every change and action</td><td>At the start. It's how you learn what it does</td></tr>
+    <tr><td>Accept edits</td><td>Edits files on its own, only asks before other actions</td><td>Once you trust it and want things to flow</td></tr>
+    <tr><td>Plan</td><td>Changes nothing. Just explores and shows you a plan to approve</td><td>Big tasks. Highly recommended!</td></tr>
+    <tr><td>Auto</td><td>Works on its own while a safety check reviews each action in the background</td><td>When you're experienced and ready to let go</td></tr>
+  </table></div>
+  <div class="note tip"><span class="ic">🗺️</span><div><b>The trick that changed how I work:</b> big task? Start in <b>Plan</b> mode. Claude asks questions, shows you a plan, you tweak it, and it only starts building once you approve. It saves so many rounds of fixes.</div></div>
+
+  <h3>Try it now: your first prompt</h3>
+  <p>Pick the one that fits you best, copy it and paste it into the message box:</p>
+  <div class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-tab="t1">Creators</button>
+    <button role="tab" aria-selected="false" data-tab="t2">Business owners</button>
+    <button role="tab" aria-selected="false" data-tab="t3">Just curious</button>
+  </div>
+  <div class="tabpanel" id="t1" data-title="For creators">
+    <div class="prompt"><button class="copy" type="button">Copy</button><span class="lbl">Prompt to copy</span>I create Instagram content about [your topic]. Build me a content calendar for next month as a spreadsheet in this folder: date, reel idea, a hook for the first 3 seconds, and caption text. Before you start, ask me 3 questions about my audience.</div>
+  </div>
+  <div class="tabpanel" id="t2" data-title="For business owners" hidden>
+    <div class="prompt"><button class="copy" type="button">Copy</button><span class="lbl">Prompt to copy</span>I run a [type of business]. Build me a simple, beautiful landing page as a single HTML file that presents my service and has a WhatsApp button. If there's a logo in this folder, use it. When you're done, open it in my browser so I can see it.</div>
+  </div>
+  <div class="tabpanel" id="t3" data-title="For the curious" hidden>
+    <div class="prompt"><button class="copy" type="button">Copy</button><span class="lbl">Prompt to copy</span>Look at the files in this folder and tell me what's in it. Then suggest 5 useful things you could do with them, from easy to advanced, and explain each one in a sentence.</div>
+  </div>
+  <div class="done-row"><button class="done-btn" type="button" aria-pressed="false"><span class="box">✓</span>I sent my first prompt</button></div>
+</section>
+
+<!-- 6 -->
+<section class="step" id="me" data-step>
+  <div class="step-head"><div class="num">6</div><div><h2>Teach Claude who you are</h2><p>This is how it stops sounding like a robot and starts working like you</p></div></div>
+  <p>Claude starts every new conversation with a blank slate. It doesn't know what your business is, how you write, or what you can't stand. There are four ways to introduce yourself, from most to least important:</p>
+
+  <h3>1. CLAUDE.md: your intro page</h3>
+  <p>It's a plain text file that sits in your work folder. <b>Claude reads it automatically at the start of every conversation</b>, without you having to mention it. Whatever is in there, it simply knows.</p>
+  <p>The easiest way to create one? Ask Claude:</p>
+  <div class="prompt"><button class="copy" type="button">Copy</button><span class="lbl">Prompt to copy</span>Create a CLAUDE.md file in this folder. Interview me first: ask me one question at a time about who I am, what my business is, who my audience is, how I like things written, and what you should never do. At the end, sum it all up in a short, organized file.</div>
+  <figure class="mock" aria-label="Illustration: an example CLAUDE.md file">
+    <div class="win">
+      <div class="win-bar"><i></i><i></i><i></i><span>claude / CLAUDE.md</span></div>
+      <div class="win-body"><div class="file"><span class="h"># About me</span>
+Dana, bridal makeup artist in Austin. 8 years of experience.
+
+<span class="h"># My audience</span>
+Brides aged 25 to 35. Most inquiries come from Instagram.
+
+<span class="h"># How to write for me</span>
+- Warm, everyday English, first person
+- Short sentences, no fancy words
+- No emojis at all
+
+<span class="h"># Good to know</span>
+- Brand colors: dusty rose and cream
+- The logo is in logo.png</div></div>
+    </div>
+    <figcaption>An example CLAUDE.md. You can open and edit it any time, or just tell Claude "add to CLAUDE.md that...".</figcaption>
+  </figure>
+
+  <h3>2. Memory: "remember that..."</h3>
+  <p>Claude Code can keep notes for itself between conversations. When you correct it on something that keeps coming up, just say: <b>"Remember that I always want short headlines."</b> Next time, it already knows.</p>
+
+  <h3>3. Files in your folder</h3>
+  <p>Claude can read anything you put in your work folder: your logo, a brand doc, examples of posts that did well, a price list. Want to point it at a specific file? Type <b>@</b> and the file name, or drag a file or image into the message box.</p>
+
+  <h3>4. <dfn data-tip="A link between Claude and an outside service like Gmail, Google Calendar or Notion.">Connectors</dfn></h3>
+  <p>You can connect Claude to the services you already use: <b>Gmail, Google Drive, Google Calendar, Notion, Canva</b> and more. Then it can read emails, check your calendar or save files to Drive.</p>
+  <figure class="mock" aria-label="Illustration: the plus menu with Connectors">
+    <div class="win">
+      <div class="win-body" style="display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap">
+        <div class="menu">
+          <div>📎 Add files</div>
+          <div>/ Slash commands</div>
+          <div class="hl pt">🔌 Connectors <small>›</small><b class="pin">1</b></div>
+          <div>🧩 Plugins <small>›</small></div>
+        </div>
+        <div class="menu" style="width:200px">
+          <div class="pt">Gmail <small>Connect</small><b class="pin">2</b></div>
+          <div>Google Calendar <small>Connect</small></div>
+          <div>Google Drive <small>Connect</small></div>
+          <div class="sep"></div>
+          <div>Manage connectors</div>
+        </div>
+      </div>
+    </div>
+    <figcaption><ol><li>Click <b>+</b> next to the message box and choose <b>Connectors</b>.</li><li>Pick a service, click <b>Connect</b> and sign in. That's all.</li></ol></figcaption>
+  </figure>
+  <div class="note warn"><span class="ic">🔒</span><div><b>What not to put in:</b> passwords, card details and ID numbers. Not in CLAUDE.md, not in the folder, not in the chat. It doesn't need them, and that's not the place for them.</div></div>
+  <div class="done-row"><button class="done-btn" type="button" aria-pressed="false"><span class="box">✓</span>I have a CLAUDE.md</button></div>
+</section>
+
+<!-- skills -->
+<section class="step" id="skills">
+  <div class="step-head"><div class="num">★</div><div><h2>Skills: teach Claude a task once</h2><p>The thing that turns it from a general assistant into your specialist</p></div></div>
+  <p>A <dfn data-tip="A saved set of instructions for a specific task. Claude pulls it out when that task comes up.">skill</dfn> is a <b>recipe</b>. A set of instructions for a task you do over and over, written once. From then on, Claude just knows how to do it exactly the way you like.</p>
+  <p>An example from my own work: I have a skill for writing reel scripts. It holds everything I've learned: how to build a hook, where to put a "re-hook" in the middle, what my voice sounds like. Now I type "write me a reel script about..." and Claude <b>pulls out the skill on its own</b> and follows my method, without me explaining it again.</p>
+
+  <h3>So what's the difference between CLAUDE.md, memory and a skill?</h3>
+  <div class="tbl-wrap"><table class="tbl">
+    <tr><th></th><th>What it is</th><th>When Claude reads it</th><th>Best for</th></tr>
+    <tr><td>CLAUDE.md</td><td>An intro page</td><td>Always, at the start of every chat</td><td>Who you are, your business, your style</td></tr>
+    <tr><td>Memory</td><td>Small notes</td><td>When they're relevant</td><td>Preferences and small corrections</td></tr>
+    <tr><td>Skill</td><td>A recipe for a task</td><td>Only when that task comes up</td><td>Repeat processes: scripts, quotes, posts</td></tr>
+  </table></div>
+  <p style="margin-top:12px">Because a skill only loads when it's needed, it can be long and detailed, with examples and attached files, without weighing down every conversation.</p>
+
+  <h3>How to use a skill</h3>
+  <ul class="dots">
+    <li><b>Automatically:</b> just ask for the task. If a skill fits, Claude pulls it out on its own.</li>
+    <li><b>Manually:</b> type <code>/</code> in the message box and a list of all your skills opens up. Pick one and type your task after it.</li>
+  </ul>
+  <figure class="mock" aria-label="Illustration: running a skill with a slash">
+    <div class="win">
+      <div class="win-body">
+        <div class="menu" style="width:290px;margin-bottom:8px">
+          <div class="hl pt">/reel-script <small>Reel script, my way</small><b class="pin">1</b></div>
+          <div>/price-quote <small>Price quote</small></div>
+          <div>/weekly-post <small>Weekly post</small></div>
+        </div>
+        <div class="ui-input"><div class="ph" style="color:#333"><span class="slash-chip">/reel-script</span> about the most common prompt mistake</div><div class="ui-tools"><span class="pill plus">+</span><span class="send pt">↑<b class="pin">2</b></span></div></div>
+      </div>
+    </div>
+    <figcaption><ol><li>Type <code>/</code> to see all your skills.</li><li>Pick one, type the task and send.</li></ol></figcaption>
+  </figure>
+
+  <h3>Where to get skills</h3>
+  <details class="acc" open><summary>🛠️ The best way: have Claude build one for you</summary><div class="in">
+    <p>Did a task with Claude and, after a few fixes, the result came out perfect? That's exactly the moment to say:</p>
+    <div class="prompt"><button class="copy" type="button">Copy</button><span class="lbl">Prompt to copy</span>Turn what we just did into a skill, so next time you do it exactly like this without me having to explain. Include every correction I gave you along the way. Save it as a personal skill so it works in all my folders.</div>
+  </div></details>
+  <details class="acc"><summary>📦 Install a ready-made one</summary><div class="in">
+    <p>Click <b>Customize</b> in the sidebar (or <b>+</b>, then <b>Plugins</b>, then <b>Add plugin</b>). You'll find ready-made skills and <dfn data-tip="A ready-made bundle of several skills, commands and connectors.">plugins</dfn> there, including ones from Anthropic itself: working with Excel, PowerPoint, PDFs and more. One click to install.</p>
+    <p>A <b>plugin</b> is simply a bundle: a few skills, connectors and settings that come together. If you find one for your field, it saves a lot of setup.</p>
+  </div></details>
+  <details class="acc"><summary>📩 Someone sent you a skill (me, for example)</summary><div class="in">
+    <p>A skill is just a folder with a file called <code>SKILL.md</code>. The easiest way: drag the file or folder into the message box and type <b>"Install this as a personal skill."</b> Claude puts it in the right place.</p>
+    <p>If you want to know where they live: personal skills are saved in <span class="mac-only"><code>~/.claude/skills</code></span><span class="win-only"><code>C:\Users\your-name\.claude\skills</code></span>, and skills for a specific project are saved inside that project's folder, in <code>.claude/skills</code>.</p>
+    <div class="note warn" style="margin-top:12px"><span class="ic">⚠️</span><div>A skill is a set of instructions Claude follows. <b>Only install skills from sources you trust.</b> Not sure? Ask Claude: "Read this skill and tell me what it does before you install it."</div></div>
+  </div></details>
+
+  <h3>What a skill looks like inside</h3>
+  <p>There's no magic here. It's plain text, with a description line at the top that helps Claude know when to use it:</p>
+  <figure class="mock" aria-label="Illustration: an example SKILL.md file">
+    <div class="win">
+      <div class="win-bar"><i></i><i></i><i></i><span>skills / weekly-post / SKILL.md</span></div>
+      <div class="win-body"><div class="file"><span class="h">---
+name: weekly-post
+description: Writes my weekly Instagram post. Use when I ask for a post, caption or Instagram text.
+---</span>
+
+When writing a weekly post:
+1. Open with a question my audience asks themselves
+2. Three short points, one per line
+3. End by inviting people to save the post
+4. Hashtags only at the end, never in the middle
+
+Example of a post that did well: see example.md</div></div>
+    </div>
+    <figcaption>The top part (between the three dashes) is the <b>description</b>. The more precise it is, the better Claude knows the right moment to use the skill.</figcaption>
+  </figure>
+  <div class="note tip"><span class="ic">🔁</span><div><b>Skills get better over time.</b> Didn't love something in the result? Once you've fixed it, type: <b>"Update the skill so that from now on..."</b>. Every fix is saved for good.</div></div>
+</section>
+
+<!-- more -->
+<section class="step" id="more">
+  <div class="step-head"><div class="num">+</div><div><h2>More good-to-knows</h2><p>Not needed on day one, but you'll be glad you know</p></div></div>
+  <details class="acc"><summary>🔄 New chat, or keep going in the old one?</summary><div class="in"><p>New task, new session (<b>New session</b>). A long conversation with lots of topics makes Claude confused and slow. Your old sessions stay in the sidebar, so you can always go back and continue any of them.</p></div></details>
+  <details class="acc"><summary>✋ How to stop or correct it mid-task</summary><div class="in"><p>Click the stop button and it stops right away. You can also just type a correction ("wait, no red") and send it while it's working. It reads the message and changes course.</p></div></details>
+  <details class="acc"><summary>🧠 Which model to pick</summary><div class="in"><p>Next to the send button there's a model picker. The default is great for most tasks. A stronger model is better for complex work, but it also eats more of your usage.</p></div></details>
+  <details class="acc"><summary>📊 Usage limits, and how not to run out</summary><div class="in"><p>Every plan has an allowance that refills every few hours. The small ring next to the model picker shows how much you've used. To save: one session per task, focused requests, and don't attach huge files you don't need.</p></div></details>
+  <details class="acc"><summary>⌨️ Slash commands worth knowing</summary><div class="in"><p>Type <code>/</code> to see the full list. A useful one to start with: <code>/init</code>, which creates a CLAUDE.md automatically based on what's in your folder. The others each have a short description in the list.</p></div></details>
+  <details class="acc"><summary>⏰ Tasks that run on their own</summary><div class="in"><p>You can ask Claude to do something on a schedule, like "every morning at 8, put together a summary of my important emails". It creates a scheduled task that runs by itself (as long as your computer and the app are open).</p></div></details>
+  <details class="acc"><summary>🖼️ You can send it images and screenshots</summary><div class="in"><p>Drag an image into the message box. "Here's a screenshot of my site, fix what's circled in red" works great. So do PDFs and spreadsheets.</p></div></details>
+</section>
+
+<!-- glossary -->
+<section class="step" id="glossary">
+  <div class="step-head"><div class="num">Aa</div><div><h2>Glossary</h2><p>Tap a term to see what it means</p></div></div>
+  <div class="gloss">
+    <details><summary>Prompt</summary><p>The message you write to Claude. The clearer and more detailed it is, the better the result.</p></details>
+    <details><summary>Session</summary><p>One conversation. Each session has its own history and folder, and it's saved in the sidebar.</p></details>
+    <details><summary>Work folder</summary><p>The folder on your computer where Claude works. It only sees and changes what's inside it.</p></details>
+    <details><summary>Permission</summary><p>The approval Claude asks for before it changes a file or runs an action.</p></details>
+    <details><summary>Plan mode</summary><p>A mode where Claude changes nothing. It just explores and shows you a plan to approve.</p></details>
+    <details><summary>CLAUDE.md</summary><p>Your intro file. Claude reads it automatically at the start of every conversation.</p></details>
+    <details><summary>Memory</summary><p>Notes Claude keeps for itself between conversations, like your preferences and corrections.</p></details>
+    <details><summary>Skill</summary><p>A saved recipe for a repeat task. It only loads when that task comes up.</p></details>
+    <details><summary>Plugin</summary><p>A bundle of several skills, connectors and settings you install in one go.</p></details>
+    <details><summary>Connector (MCP)</summary><p>A link between Claude and an outside service like Gmail, a calendar or Notion. MCP is the technical name.</p></details>
+    <details><summary>Slash command</summary><p>Anything that starts with / in the message box: skills and built-in commands.</p></details>
+    <details><summary>Tokens</summary><p>The "units" your usage is measured in. Long conversations and big files use more.</p></details>
+  </div>
+</section>
+
+<!-- tips -->
+<section class="step" id="tips">
+  <div class="step-head"><div class="num">💡</div><div><h2>Tips and common mistakes</h2><p>What I wish someone had told me on day one</p></div></div>
+  <ul class="dots">
+    <li><b>Give context, not just a command.</b> "Write a post" gets you something generic. "Write a post for brides who are on the fence about a makeup trial, in a warm tone" gets you something that sounds like you.</li>
+    <li><b>Ask it to ask you questions.</b> "Before you start, ask me what you're missing" is the single most useful sentence there is.</li>
+    <li><b>Work on copies.</b> Claude is careful, but it can change and delete files. Don't hand it the only folder of your wedding photos.</li>
+    <li><b>Big task? Plan mode.</b> Plan first, build second.</li>
+    <li><b>Didn't come out right? Don't start over.</b> Tell it exactly what's wrong. It improves really fast from feedback.</li>
+    <li><b>Nailed it? Make it a skill.</b> That way every win stays with you.</li>
+  </ul>
+</section>
+
+<section class="final">
+  <h2>That's it, you're ready 🎉</h2>
+  <p>Now go back to the prompt I sent you, paste it into the message box in the Code tab, and watch the magic happen.</p>
+  <a class="btn" id="finalBack" href="https://www.instagram.com/aiby.ro/" target="_blank" rel="noopener">More prompts on Instagram @aiby.ro</a>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <a class="wordmark" href="../"><span class="mk">ai</span><span>aiby<span class="dot">.</span>ro</span></a><br>
+  Made with love by <a href="https://www.instagram.com/aiby.ro/" target="_blank" rel="noopener">@aiby.ro</a> · <a href="../">More guides</a>
+</footer>
+
+<div class="tip-pop" id="tipPop" role="tooltip"></div>
+
+<script>
+(function(){
+  var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+  var KEY='ccstart-en-done';
+
+  var osBtns=document.querySelectorAll('.os-switch button');
+  function setOS(os){document.body.classList.toggle('os-win',os==='win');osBtns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.os===os)});store.set('ccstart-os',os)}
+  setOS(store.get('ccstart-os')||(/Win/.test(navigator.platform||navigator.userAgent)?'win':'mac'));
+  osBtns.forEach(function(b){b.addEventListener('click',function(){setOS(b.dataset.os)})});
+
+  var steps=[].slice.call(document.querySelectorAll('section[data-step]'));
+  var done={};try{done=JSON.parse(store.get(KEY)||'{}')||{}}catch(e){}
+  function render(){
+    var n=0;
+    steps.forEach(function(s){var on=!!done[s.id];if(on)n++;s.querySelector('.done-btn').setAttribute('aria-pressed',on);var a=document.querySelector('nav.toc a[data-step="'+s.id+'"]');if(a)a.classList.toggle('done',on)});
+    document.getElementById('progText').textContent=n+' of '+steps.length+' steps';
+    document.getElementById('progBar').style.width=(n/steps.length*100)+'%';
+  }
+  steps.forEach(function(s,i){s.querySelector('.done-btn').addEventListener('click',function(){
+    done[s.id]=!done[s.id];store.set(KEY,JSON.stringify(done));render();
+    if(done[s.id]&&steps[i+1])setTimeout(function(){steps[i+1].scrollIntoView({behavior:'smooth'})},250);
+  })});
+  render();
+
+  document.querySelectorAll('.copy').forEach(function(btn){btn.addEventListener('click',function(){
+    var box=btn.parentNode.cloneNode(true);box.querySelectorAll('.copy,.lbl').forEach(function(x){x.remove()});
+    var txt=box.textContent.trim();
+    function ok(){btn.textContent='Copied ✓';btn.classList.add('ok');setTimeout(function(){btn.textContent='Copy';btn.classList.remove('ok')},1800)}
+    function fallback(){var t=document.createElement('textarea');t.value=txt;document.body.appendChild(t);t.select();try{document.execCommand('copy');ok()}catch(e){}t.remove()}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(ok,fallback)}else fallback();
+  })});
+
+  var tabBtns=document.querySelectorAll('.tabs button');
+  tabBtns.forEach(function(b){b.addEventListener('click',function(){tabBtns.forEach(function(x){x.setAttribute('aria-selected',x===b);document.getElementById(x.dataset.tab).hidden=x!==b})})});
+
+  var pop=document.getElementById('tipPop');
+  function show(el){pop.textContent=el.dataset.tip;var r=el.getBoundingClientRect();pop.classList.add('show');var w=pop.offsetWidth;var left=Math.min(Math.max(8,r.left+r.width/2-w/2),window.innerWidth-w-8);pop.style.left=left+window.scrollX+'px';pop.style.top=r.bottom+window.scrollY+8+'px'}
+  function hide(){pop.classList.remove('show')}
+  document.querySelectorAll('dfn[data-tip]').forEach(function(d){d.tabIndex=0;d.addEventListener('mouseenter',function(){show(d)});d.addEventListener('mouseleave',hide);d.addEventListener('focus',function(){show(d)});d.addEventListener('blur',hide);d.addEventListener('click',function(e){e.stopPropagation();pop.classList.contains('show')?hide():show(d)})});
+  document.addEventListener('click',hide);window.addEventListener('scroll',hide,{passive:true});
+
+  var links=[].slice.call(document.querySelectorAll('nav.toc a'));
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){var on=a.getAttribute('href')==='#'+e.target.id;a.classList.toggle('active',on);if(on&&window.innerWidth<900)a.scrollIntoView({block:'nearest',inline:'center'})})}})},{rootMargin:'-40% 0px -55% 0px'});
+    links.forEach(function(a){var t=document.querySelector(a.getAttribute('href'));if(t)io.observe(t)});
+  }
+
+  function openAll(){document.querySelectorAll('details').forEach(function(d){d.open=true})}
+  window.addEventListener('beforeprint',openAll);
+  if(/[?&]print=1/.test(location.search))openAll();
+
+  // ?from=<folder in this repo>
+  var from=new URLSearchParams(location.search).get('from');
+  if(from&&/^[a-z0-9\-\/]+$/i.test(from)){
+    var href='../'+from.replace(/^\/+/,'')+(from.indexOf('.')<0&&!/\/$/.test(from)?'/':'');
+    document.getElementById('fromLink').href=href;document.getElementById('fromBanner').classList.add('show');
+    var fb=document.getElementById('finalBack');fb.href=href;fb.removeAttribute('target');fb.textContent='Back to the prompt →';
+  }
+})();
+</script>
+</body>
+</html>

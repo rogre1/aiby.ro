@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Guides | aiby.ro</title>
+<meta name="description" content="Free, friendly AI guides for creators and small businesses. No coding required.">
+<meta property="og:title" content="AI Guides | aiby.ro">
+<meta property="og:description" content="Free, friendly AI guides for creators and small businesses.">
+<meta property="og:image" content="https://rogre1.github.io/aiby.ro/claude-code-start/og.png">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--cream:#FBF9F4;--mint:#F0F3E8;--forest:#333E27;--forest-deep:#20261A;--olive:#788C5D;--olive-bright:#8BA36B;--leaf:#B7C29F;--ink:#1B1D16;--ink-2:#5B5F52;--ink-3:#8A8672;--line:#E3E0D5;--shadow-sm:0 10px 22px rgba(35,38,30,.10)}
+body{font-family:'Heebo',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.7;font-size:17px}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px}
+header{border-bottom:1px solid var(--line)}
+header .wrap{padding-top:16px;padding-bottom:16px}
+.wordmark{display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:var(--forest-deep);font-weight:800;font-size:1.35rem;letter-spacing:-.02em;line-height:1}
+.wordmark .mk{width:32px;height:32px;border-radius:50%;background:var(--forest);color:var(--cream);display:grid;place-items:center;font-size:.95rem;position:relative}
+.wordmark .mk::after{content:"";position:absolute;right:3px;bottom:4px;width:7px;height:7px;border-radius:50%;background:var(--olive-bright)}
+.wordmark .dot{color:var(--olive)}
+.hero{padding:64px 0 32px}
+.eyebrow{display:inline-block;background:var(--mint);color:var(--olive);border:1px solid var(--leaf);font-weight:700;font-size:.85rem;padding:4px 14px;border-radius:99px;margin-bottom:16px}
+h1{font-size:clamp(2rem,5.4vw,3rem);line-height:1.12;font-weight:900;color:var(--forest-deep);letter-spacing:-.02em}
+h1 em{font-style:normal;color:var(--olive)}
+.lead{font-size:1.15rem;color:var(--ink-2);margin-top:14px;max-width:600px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;padding-bottom:64px}
+.card{display:block;background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px;text-decoration:none;color:inherit;box-shadow:var(--shadow-sm);transition:transform .15s}
+.card:hover{transform:translateY(-3px)}
+.card .tag{font-size:.78rem;font-weight:800;color:var(--olive);text-transform:uppercase;letter-spacing:.06em}
+.card h2{font-size:1.35rem;line-height:1.25;color:var(--forest-deep);margin:8px 0 6px;font-weight:800}
+.card p{color:var(--ink-2);font-size:.95rem}
+.card .go{display:inline-block;margin-top:14px;font-weight:700;color:var(--forest)}
+.card.soon{background:transparent;box-shadow:none;border-style:dashed;color:var(--ink-3)}
+.card.soon h2{color:var(--ink-3)}
+footer{border-top:1px solid var(--line);padding:28px 16px;text-align:center;color:var(--ink-3);font-size:.88rem}
+footer a{color:var(--olive);font-weight:600}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="wordmark" href="./"><span class="mk">ai</span><span>aiby<span class="dot">.</span>ro</span></a></div></header>
+<main class="wrap">
+  <section class="hero">
+    <span class="eyebrow">Free guides</span>
+    <h1>AI for creators,<br><em>explained like a friend would.</em></h1>
+    <p class="lead">Short, step-by-step guides for creators and small business owners. No jargon, no coding.</p>
+  </section>
+  <div class="grid">
+    <a class="card" href="claude-code-start/">
+      <span class="tag">Start here</span>
+      <h2>Getting started with Claude Code</h2>
+      <p>Install it, pick a work folder, teach it who you are, and set up skills. About 20 minutes.</p>
+      <span class="go">Open the guide →</span>
+    </a>
+    <div class="card soon">
+      <span class="tag">Coming soon</span>
+      <h2>More guides on the way</h2>
+      <p>Follow along on Instagram so you don't miss the next one.</p>
+    </div>
+  </div>
+</main>
+<footer>Made with love by <a href="https://www.instagram.com/aiby.ro/" target="_blank" rel="noopener">@aiby.ro</a></footer>
+</body>
+</html>
