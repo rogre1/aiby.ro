@@ -39,6 +39,7 @@ b,strong{font-weight:700;color:var(--forest-deep)}
 .wordmark{display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:var(--forest-deep);font-weight:800;font-size:1.35rem;letter-spacing:-.02em;line-height:1}
 .wordmark .mk{width:32px;height:32px;border-radius:50%;background:var(--forest);color:var(--cream);display:grid;place-items:center;font-size:.95rem;font-weight:800;position:relative}
 .wordmark .mk::after{content:"";position:absolute;right:3px;bottom:4px;width:7px;height:7px;border-radius:50%;background:var(--olive-bright)}
+.wordmark .av{width:32px;height:32px;border-radius:50%;object-fit:cover;display:block}
 .wordmark .dot{color:var(--olive)}
 
 /* header */
@@ -221,7 +222,7 @@ footer .wordmark{margin-bottom:10px;font-size:1.15rem}
 }
 @media (max-width:640px){
   body{font-size:16px}
-  .wordmark{font-size:1.15rem}.wordmark .mk{width:28px;height:28px}
+  .wordmark{font-size:1.15rem}.wordmark .mk,.wordmark .av{width:28px;height:28px}
   section.step{padding:26px 18px}
   .compare{grid-template-columns:1fr}
   .hero{padding-top:34px}
@@ -257,7 +258,7 @@ footer .wordmark{margin-bottom:10px;font-size:1.15rem}
 
 <header>
   <div class="hwrap">
-    <a class="wordmark" href="../" aria-label="aiby.ro guides home"><span class="mk">ai</span><span>aiby<span class="dot">.</span>ro</span></a>
+    <a class="wordmark" href="../" aria-label="aiby.ro guides home"><img class="av" src="../assets/avatar.jpg" alt="" width="32" height="32"><span>aiby<span class="dot">.</span>ro</span></a>
     <div class="progress" aria-live="polite"><span id="progText">0 of 6 steps</span><div class="bar"><i id="progBar"></i></div></div>
     <div class="os-switch" role="group" aria-label="Operating system">
       <button type="button" data-os="mac" aria-pressed="true">Mac</button>
@@ -285,7 +286,7 @@ footer .wordmark{margin-bottom:10px;font-size:1.15rem}
 <main id="top">
 
 <section class="hero">
-  <span class="wordmark print-logo"><span class="mk">ai</span><span>aiby<span class="dot">.</span>ro</span></span><br>
+  <span class="wordmark print-logo"><img class="av" src="../assets/avatar.jpg" alt="" width="32" height="32"><span>aiby<span class="dot">.</span>ro</span></span><br>
   <span class="eyebrow">Beginner's guide · aiby.ro</span>
   <h1>Getting started with <em>Claude Code</em>, no coding required</h1>
   <p class="lead">Got a prompt from me and no idea where to paste it? You're in the right place. Six short steps, and you'll have an AI assistant that works on the files on your computer and actually knows you.</p>
@@ -644,7 +645,7 @@ Example of a post that did well: see example.md</div></div>
 </div>
 
 <footer>
-  <a class="wordmark" href="../"><span class="mk">ai</span><span>aiby<span class="dot">.</span>ro</span></a><br>
+  <a class="wordmark" href="../"><img class="av" src="../assets/avatar.jpg" alt="" width="32" height="32"><span>aiby<span class="dot">.</span>ro</span></a><br>
   Made with love by <a href="https://www.instagram.com/aiby.ro/" target="_blank" rel="noopener">@aiby.ro</a> · <a href="../">More guides</a>
 </footer>
 

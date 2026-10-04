@@ -17,7 +17,8 @@ html,body{height:100%}
 body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55;display:flex;flex-direction:column}
 .wrap{width:100%;max-width:640px;margin:0 auto;padding-inline:20px}
 header{padding-block:22px}
-.mark{font-weight:900;font-size:1.25rem;letter-spacing:-.02em;color:var(--ink);text-decoration:none}
+.mark{display:inline-flex;align-items:center;font-weight:900;font-size:1.25rem;letter-spacing:-.02em;color:var(--ink);text-decoration:none}
+.mark .av{margin-right:10px;width:34px;height:34px;border-radius:50%;object-fit:cover;display:block}
 .mark span{background:linear-gradient(transparent 58%,var(--lime) 58%)}
 main{flex:1;display:flex;align-items:center;padding-block:20px 48px}
 .kicker{font-family:var(--serif);font-style:italic;font-size:1.6rem;color:var(--ink2)}
@@ -33,7 +34,7 @@ footer em{font-family:var(--serif)}
 </style>
 </head>
 <body>
-<header><div class="wrap"><a class="mark" href="../../">aiby<span>.ro</span></a></div></header>
+<header><div class="wrap"><a class="mark" href="../../"><img class="av" src="../../assets/avatar.jpg" alt="" width="34" height="34">aiby<span>.ro</span></a></div></header>
 <main>
   <div class="wrap">
     <div class="kicker">you're in!</div>
