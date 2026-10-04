@@ -34,8 +34,8 @@ h2{font-weight:800;font-size:1.25rem;letter-spacing:-.02em;margin:40px 0 12px}
 /* fill-in fields */
 .fill{display:grid;gap:12px;margin-bottom:14px}
 .fill label{font-size:.85rem;font-weight:700}
-.fill input{display:block;width:100%;margin-top:5px;font:inherit;font-size:.98rem;padding:13px 15px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);outline:none}
-.fill input:focus{border-color:var(--ink)}
+.fill input,.fill textarea{display:block;width:100%;margin-top:5px;font:inherit;font-size:.98rem;padding:13px 15px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);outline:none}
+.fill input:focus,.fill textarea:focus{border-color:var(--ink)}
 
 /* prompt box */
 .prompt{background:var(--ink);color:#F2F3EE;border-radius:20px;overflow:hidden;box-shadow:0 24px 60px rgba(18,20,24,.16)}
@@ -94,3 +94,4 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(-
 .card p{font-size:.9rem;color:var(--ink2);margin-top:6px}
 .card.soon{opacity:.55;pointer-events:none}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.fill textarea{resize:vertical;min-height:62px;line-height:1.45}
