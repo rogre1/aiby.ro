@@ -103,6 +103,8 @@ footer em{font-family:var(--serif)}
   // Until the Kit form ID is filled in, don't send people to a broken URL.
   const f = document.getElementById('kit');
   f.addEventListener('submit', (e) => {
+    // Remember the sign-up so prompt pages open without asking again.
+    try { localStorage.setItem('aiby_sub', '1'); } catch (err) {}
     if (f.action.includes('KIT_FORM_ID')) {
       e.preventDefault();
       document.getElementById('msg').textContent = 'Sign-up opens very soon. Please check back in a little while.';

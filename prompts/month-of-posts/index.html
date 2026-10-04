@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Month of Posts in One Prompt | aiby.ro</title>
+<meta name="description" content="One copy-paste prompt that plans 30 days of posts for your small business. Every post doable in 10 minutes.">
+<meta property="og:title" content="A month of posts in one prompt">
+<meta property="og:description" content="Copy, fill in two lines, get a 30-day post plan for your business.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../prompts.css">
+<script src="../gate.js"></script>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="mark" href="../../"><img class="av" src="../../assets/avatar.jpg" alt="" width="34" height="34">aiby<span>.ro</span></a>
+  <a class="back" href="../">← All prompts</a>
+</div></header>
+
+<main><div class="wrap">
+  <div class="kicker">prompt</div>
+  <h1>A month of posts in <span class="hl">one prompt</span></h1>
+  <p class="lead">Never stare at an empty screen thinking "what do I post today?" again. Tell AI about your business in two lines, and it gives you a 30-day plan where every post takes 10 minutes or less.</p>
+  <div class="facts"><span>⏱ 4 minutes</span><span>Works in ChatGPT or Claude</span><span>Free</span></div>
+
+  <h2>Before you start</h2>
+  <ol class="steps">
+    <li><b>Open ChatGPT or Claude</b><small>The free version is fine. A new, empty chat.</small></li>
+    <li><b>Think of two things</b><small>What your business is, and who your customers are (plus the question they ask you most).</small></li>
+  </ol>
+
+  <h2>Your prompt</h2>
+
+  <div class="gate">
+    <h3>Unlock the prompt</h3>
+    <p>Leave your email once and every prompt on aiby.ro opens for you. No spam, just new prompts.</p>
+    <form id="gate-form">
+      <label for="gate-email" style="position:absolute;left:-9999px">Email address</label>
+      <input id="gate-email" type="email" name="email_address" placeholder="Your email address" autocomplete="email" required>
+      <button type="submit">Show me the prompt</button>
+    </form>
+    <p class="msg" id="gate-msg" role="status"></p>
+    <p class="fine">Unsubscribe anytime.</p>
+  </div>
+
+  <div class="unlock-only">
+    <div class="fill">
+      <label>Your business <input id="f-biz" placeholder="e.g. pottery studio, therapist, home bakery"></label>
+      <label>Your customers <input id="f-cust" placeholder="e.g. busy moms, they always ask about kids' classes"></label>
+    </div>
+    <div class="prompt">
+      <div class="prompt-top"><span>Copy this</span><button class="copy" id="copy" type="button">Copy prompt</button></div>
+<pre id="prompt">Act as my social media helper.
+My business: <span class="ph" data-f="f-biz">[e.g. pottery studio / therapist / home bakery]</span>
+My customers: <span class="ph" data-f="f-cust">[who they are + what they ask me most]</span>
+
+Create a 30-day post plan as a table:
+Day | Post type (photo / reel / carousel) | Idea | Caption opening line
+
+Mix: behind the scenes, answers to customer questions, happy clients.
+I'm not a content creator: keep every post doable in 10 minutes.</pre>
+    </div>
+    <p class="hint">Fill in the two boxes above and the prompt updates itself. Or copy it as is and fill in the [brackets] in the chat.</p>
+  </div>
+
+  <h2>What you'll get back</h2>
+  <div class="example">
+    <div class="example-head">Example for <b>a small pottery studio</b> (first 5 of 30 days)</div>
+    <div class="scroll"><table>
+      <thead><tr><th>Day</th><th>Type</th><th>Idea</th><th>Caption opening line</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Photo</td><td>Your hands on the wheel, clay everywhere</td><td>"This is what Monday looks like here."</td></tr>
+        <tr><td>2</td><td>Reel</td><td>A mug from lump of clay to finished, sped up</td><td>"3 weeks in 15 seconds."</td></tr>
+        <tr><td>3</td><td>Carousel</td><td>Answer: "Do I need experience for a class?"</td><td>"The question I get every single week."</td></tr>
+        <tr><td>4</td><td>Photo</td><td>A happy student holding her first bowl</td><td>"Her first bowl. She said she 'wasn't creative.'"</td></tr>
+        <tr><td>5</td><td>Reel</td><td>Loading the kiln, then the big reveal</td><td>"The most nerve-wracking part of my job."</td></tr>
+      </tbody>
+    </table></div>
+    <div class="more">... and 25 more days, all in one answer.</div>
+  </div>
+  <div class="tip"><b>Tip:</b> Not happy with a day? Just reply "change day 4 to something about gift cards". No need to start over.</div>
+
+  <div class="next">
+    <h2>Want the next one?</h2>
+    <p>A new prompt for the busywork around your business, every week on Instagram.</p>
+    <a href="https://www.instagram.com/aiby.ro/" target="_blank" rel="noopener">Follow @aiby.ro</a>
+  </div>
+</div></main>
+
+<footer><div class="wrap">aiby.ro · <em>AI does the busywork. You do the work you love.</em></div></footer>
+
+<script>
+  // Live fill-in: typing in the boxes replaces the [brackets] in the prompt.
+  document.querySelectorAll('.ph').forEach((ph) => {
+    const input = document.getElementById(ph.dataset.f);
+    const original = ph.textContent;
+    input.addEventListener('input', () => {
+      const v = input.value.trim();
+      ph.textContent = v || original;
+      ph.className = v ? 'filled' : 'ph';
+    });
+  });
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    const text = document.getElementById('prompt').innerText;
+    try { await navigator.clipboard.writeText(text); }
+    catch (e) {
+      const t = document.createElement('textarea'); t.value = text; document.body.appendChild(t);
+      t.select(); document.execCommand('copy'); t.remove();
+    }
+    btn.textContent = 'Copied ✓'; btn.classList.add('done');
+    setTimeout(() => { btn.textContent = 'Copy prompt'; btn.classList.remove('done'); }, 2000);
+  });
+</script>
+</body>
+</html>
