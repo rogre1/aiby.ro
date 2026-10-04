@@ -2,7 +2,7 @@
 // First visit: ask for an email, send it to Kit, then show the prompt right here.
 // After that the browser remembers (aiby_sub), so every other prompt page opens straight away.
 (function () {
-  const KIT_FORM_ID = 'KIT_PROMPTS_FORM_ID'; // "Prompt library" form in Kit
+  const KIT_FORM_ID = '10000785'; // "Prompt library" form in Kit
   const KEY = 'aiby_sub';
   const root = document.documentElement;
 
