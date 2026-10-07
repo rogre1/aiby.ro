@@ -96,7 +96,7 @@
     <ol class="steps">
       <li><b>Open a new chat in ChatGPT or Claude and paste</b><small>In about a minute you get your 3 most-used customer messages, ready to send, with your real prices and in your words.</small></li>
       <li><b>Save the 3 messages as quick replies</b><small>WhatsApp Business → Settings → Business tools → Quick replies. Instagram → Settings → Creator tools → Saved replies. Next time a customer asks, it's two taps.</small></li>
-      <li><b>Optional, 1 minute: make it remember you</b><small>At the end it writes a short "employee brief". Save it once and every future chat already knows your business. ChatGPT: your name → Personalization → Custom instructions. Claude: create a Project and paste it into the instructions.</small></li>
+      <li><b>Say "yes" when it asks to remember you</b><small>At the end it asks if it should remember your business. Say yes, and it saves everything (or shows you exactly where to paste it in 1 minute). From then on, every new chat already knows your business.</small></li>
     </ol>
   </div>
 
@@ -146,7 +146,8 @@
       `3) A welcome message for a new customer: what to expect, how to pay, how to reach me.`,
       `Under 60 words each. Use [brackets] only for parts that change, like a name or a date.`,
       ``,
-      `Then, at the end, write a short "employee brief" (under 1,200 characters) with everything you know about my business, so I can save it in my settings and you remember me in every future chat.`,
+      `When you're done, ask me: "Want me to remember your business for every future chat?"`,
+      `If I say yes: save everything you know about my business to your memory, if you can. If you can't, write a short "employee brief" (under 1,200 characters) and tell me step by step where to paste it in my settings, so every future chat already knows my business.`,
     ];
     const text = lines.join('\n');
     $('prompt').textContent = text;
