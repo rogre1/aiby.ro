@@ -38,7 +38,7 @@
 <main><div class="wrap">
   <div class="kicker">setup</div>
   <h1>Hire your first <span class="hl">AI employee</span></h1>
-  <p class="lead">Right now, every time you open ChatGPT or Claude you start from zero: who you are, what you sell, how you talk. Answer a few questions once, and you get a ready "employee brief". Paste it into your AI's settings, and from then on it already knows your business in every chat.</p>
+  <p class="lead">Right now, every time you open ChatGPT or Claude you start from zero: who you are, what you sell, how you talk. Answer a few questions once, paste one prompt, and your AI employee starts working: your 3 most-used customer messages, ready to send today.</p>
   <div class="facts"><span>⏱ 10 minutes</span><span>3 ready customer messages today</span><span>Works in ChatGPT or Claude</span><span>Free</span></div>
 
   <h2>What your AI employee can do after this</h2>
@@ -87,35 +87,22 @@
     </div>
 
     <div class="prompt">
-      <div class="prompt-top"><span>Your employee brief</span><button class="copy" id="copy" type="button">Copy brief</button></div>
+      <div class="prompt-top"><span>Your prompt</span><button class="copy" id="copy" type="button">Copy prompt</button></div>
 <pre id="prompt"></pre>
-      <div class="count" id="count"></div>
     </div>
-    <p class="hint">The brief updates as you type. Everything stays in your browser, nothing is sent anywhere.</p>
+    <p class="hint">The prompt updates as you type. Everything stays in your browser, nothing is sent anywhere.</p>
 
-    <h2>Where to paste it (once)</h2>
-    <div class="where">
-      <div><b>ChatGPT</b><ol><li>Click your name or picture</li><li>Personalization → Custom instructions</li><li>Paste the brief and save</li></ol></div>
-      <div><b>Claude</b><ol><li>Create a new Project, name it after your business</li><li>Paste the brief into the project instructions</li><li>Start every work chat inside that project</li></ol></div>
-    </div>
-
-    <h2>Your employee's first shift (2 minutes)</h2>
-    <p class="lead" style="margin-top:0">Paste this right after, in the same place. You get the 3 messages you write most, ready to send, in your words and with your real prices.</p>
-    <div class="prompt">
-      <div class="prompt-top"><span>First task</span><button class="copy" id="copy2" type="button">Copy</button></div>
-<pre id="test">Write my 3 most-used customer messages as ready-to-send templates:
-1) The answer to "How much is it?"
-2) The answer to "Are you available on...?"
-3) A welcome message for a new customer: what to expect, how to pay, how to reach me.
-Use my real prices and my tone. Under 60 words each.
-Use [brackets] only for the parts that change, like a name or a date.</pre>
-    </div>
-    <div class="tip"><b>Save them once, use them forever:</b> WhatsApp Business → Settings → Business tools → Quick replies. On Instagram: Settings → Creator tools → Saved replies. Next time a customer asks, it's two taps.</div>
+    <h2>Paste it into a new chat. That's it.</h2>
+    <ol class="steps">
+      <li><b>Open a new chat in ChatGPT or Claude and paste</b><small>In about a minute you get your 3 most-used customer messages, ready to send, with your real prices and in your words.</small></li>
+      <li><b>Save the 3 messages as quick replies</b><small>WhatsApp Business → Settings → Business tools → Quick replies. Instagram → Settings → Creator tools → Saved replies. Next time a customer asks, it's two taps.</small></li>
+      <li><b>Optional, 1 minute: make it remember you</b><small>At the end it writes a short "employee brief". Save it once and every future chat already knows your business. ChatGPT: your name → Personalization → Custom instructions. Claude: create a Project and paste it into the instructions.</small></li>
+    </ol>
   </div>
 
   <h2>What it looks like</h2>
   <div class="example">
-    <div class="example-head">Example: <b>a small ceramics studio</b>, first shift</div>
+    <div class="example-head">Example: what <b>a small ceramics studio</b> got back</div>
     <div style="padding:16px;font-size:.92rem;display:grid;gap:10px">
       <p style="color:var(--ink2);font-size:.85rem">1) "How much is it?"</p>
       <p style="background:var(--lime-soft);border-radius:14px 14px 14px 4px;padding:12px 14px">Hi [name]! A beginner class is $45, or $160 for a package of 4. Want me to save you a spot this week? 🙂</p>
@@ -143,28 +130,26 @@ Use [brackets] only for the parts that change, like a name or a date.</pre>
     const tasks = [...document.querySelectorAll('#f-tasks input:checked')].map((c) => c.value);
     const never = $('f-never').value.trim();
     const lines = [
-      `You are my assistant for my small business. Think of yourself as my first employee.`,
+      `You are my new assistant for my small business. Think of yourself as my first employee.`,
       ``,
       `MY BUSINESS: ${v('f-biz', '[what you do]')}`,
       `MY CUSTOMERS: ${v('f-cust', '[who they are]')}`,
       `WHAT I OFFER AND PRICES: ${v('f-offer', '[your services and prices]')}`,
       `HOW I TALK TO CUSTOMERS: ${v('f-tone', '[your tone]')}. Write in ${v('f-lang', '[language]')}.`,
-      ``,
       `WHAT I WANT YOU TO TAKE OFF MY PLATE: ${tasks.length ? tasks.join(', ') : '[tasks]'}.`,
-      `I want to spend my time on the part of my work I love. Everything else, help me get it done fast.`,
       ``,
-      `RULES:`,
-      `- Write like me, not like a company. Short, clear, human.`,
-      `- Use only my real prices and details. If something is missing, ask me one short question.`,
-      `- Give me a ready draft I can copy and send, not advice about it.`,
-      `- Never use phrases like "Dear valued customer" or "kindly".`,
+      `RULES: Write like me, not like a company. Short, clear, human. Use only my real prices and details. Give me ready drafts I can copy and send. Never use "Dear valued customer" or "kindly".${never ? ' Never: ' + never + '.' : ''}`,
+      ``,
+      `YOUR FIRST TASK: write my 3 most-used customer messages as ready-to-send templates:`,
+      `1) The answer to "How much is it?"`,
+      `2) The answer to "Are you available on...?"`,
+      `3) A welcome message for a new customer: what to expect, how to pay, how to reach me.`,
+      `Under 60 words each. Use [brackets] only for parts that change, like a name or a date.`,
+      ``,
+      `Then, at the end, write a short "employee brief" (under 1,200 characters) with everything you know about my business, so I can save it in my settings and you remember me in every future chat.`,
     ];
-    if (never) lines.push(`- Never: ${never}.`);
     const text = lines.join('\n');
     $('prompt').textContent = text;
-    const n = text.length;
-    $('count').textContent = n + ' characters' + (n > 1500 ? ' · ChatGPT custom instructions fit about 1,500, so shorten your answers a little' : '');
-    $('count').className = 'count' + (n > 1500 ? ' over' : '');
   }
   document.querySelectorAll('.fill input, .fill textarea').forEach((el) => el.addEventListener('input', build));
   build();
@@ -178,8 +163,7 @@ Use [brackets] only for the parts that change, like a name or a date.</pre>
       setTimeout(() => { btn.textContent = label; btn.classList.remove('done'); }, 2000);
     });
   }
-  wire('copy', 'prompt', 'Copy brief');
-  wire('copy2', 'test', 'Copy');
+  wire('copy', 'prompt', 'Copy prompt');
 </script>
 </body>
 </html>
