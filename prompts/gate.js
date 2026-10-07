@@ -24,10 +24,26 @@
     const form = document.getElementById('gate-form');
     if (!form) { unlock(); return; }
     const msg = document.getElementById('gate-msg');
+    // The browser's own email check rejects hidden characters (e.g. a pasted or
+    // Hebrew-keyboard dot) with a confusing message, so we clean and check ourselves.
+    const input = form.email_address;
+    input.type = 'text';
+    input.inputMode = 'email';
+    input.autocapitalize = 'off';
+    input.spellcheck = false;
+    form.noValidate = true;
+    const clean = (v) => v
+      .replace(/[​-‏‪-‮⁦-⁩﻿\s]/g, '')
+      .replace(/[。．｡․·]/g, '.')
+      .replace(/＠/g, '@');
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const email = form.email_address.value.trim();
-      if (!email) return;
+      const email = clean(input.value);
+      input.value = email;
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+        if (msg) msg.textContent = 'Please check your email address.';
+        return;
+      }
       const btn = form.querySelector('button');
       btn.disabled = true; btn.textContent = 'Opening...';
       if (!KIT_FORM_ID.startsWith('KIT_')) {
