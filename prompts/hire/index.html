@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hire Your First AI Employee | aiby.ro</title>
+<meta name="description" content="Answer a few questions about your business and get a ready brief that turns ChatGPT or Claude into your own assistant. 10 minutes, no tech skills.">
+<meta property="og:title" content="Hire your first AI employee">
+<meta property="og:description" content="A few questions about your business → a ready brief for ChatGPT or Claude. It learns your business in 10 minutes.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../prompts.css">
+<style>
+  .checks{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .checks label{display:inline-flex;align-items:center;gap:7px;font-weight:600;font-size:.9rem;background:var(--card);border:1.5px solid var(--line);border-radius:99px;padding:8px 13px;cursor:pointer}
+  .checks input{accent-color:var(--ink);width:16px;height:16px}
+  .checks label:has(input:checked){border-color:var(--ink);background:var(--lime-soft)}
+  .count{font-size:.8rem;color:#9AA0A6;padding:0 18px 14px}
+  .count.over{color:#FFB4A9}
+  .where{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .where div{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+  .where b{display:block;margin-bottom:6px}
+  .where ol{margin-left:18px;color:var(--ink2);font-size:.93rem;display:grid;gap:4px}
+  .fill .row2{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+  @media (max-width:600px){.fill .row2{grid-template-columns:1fr}}
+</style>
+<script src="../gate.js"></script>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="mark" href="../../"><img class="av" src="../../assets/avatar.jpg" alt="" width="34" height="34">aiby<span>.ro</span></a>
+  <a class="back" href="../">← All prompts</a>
+</div></header>
+
+<main><div class="wrap">
+  <div class="kicker">setup</div>
+  <h1>Hire your first <span class="hl">AI employee</span></h1>
+  <p class="lead">Right now, every time you open ChatGPT or Claude you start from zero: who you are, what you sell, how you talk. Answer a few questions once, and you get a ready "employee brief". Paste it into your AI's settings, and from then on it already knows your business in every chat.</p>
+  <div class="facts"><span>⏱ 10 minutes</span><span>Works in ChatGPT or Claude</span><span>Free</span></div>
+
+  <h2>What your AI employee can do after this</h2>
+  <ol class="steps">
+    <li><b>Reply to customers in your voice</b><small>It already knows your prices, your tone and what you offer.</small></li>
+    <li><b>Draft quotes, emails and posts</b><small>Without you explaining your business again.</small></li>
+    <li><b>Take the parts you don't love</b><small>Marketing, numbers, admin. You keep the work you started this for.</small></li>
+  </ol>
+
+  <h2>Write your employee brief</h2>
+
+  <div class="gate">
+    <h3>Unlock the setup</h3>
+    <p>Leave your email once and every prompt on aiby.ro opens for you. No spam, just new prompts.</p>
+    <form id="gate-form">
+      <label for="gate-email" style="position:absolute;left:-9999px">Email address</label>
+      <input id="gate-email" type="email" name="email_address" placeholder="Your email address" autocomplete="email" required>
+      <button type="submit">Show me the setup</button>
+    </form>
+    <p class="msg" id="gate-msg" role="status"></p>
+    <p class="fine">Unsubscribe anytime.</p>
+  </div>
+
+  <div class="unlock-only">
+    <div class="fill">
+      <label>What's your business? <input id="f-biz" placeholder="e.g. a small ceramics studio with weekly classes"></label>
+      <label>Who are your customers? <input id="f-cust" placeholder="e.g. women 30–50 who want a creative hobby"></label>
+      <label>What do you offer, and for how much? <textarea id="f-offer" rows="3" placeholder="e.g. Beginner class $45 · 4-class package $160 · Private event from $400"></textarea></label>
+      <div class="row2">
+        <label>How do you talk to customers? <input id="f-tone" placeholder="e.g. warm, short, a bit funny, one emoji max"></label>
+        <label>Which language do you write in? <input id="f-lang" placeholder="e.g. English"></label>
+      </div>
+      <div>
+        <label style="display:block">What do you want to hand off?</label>
+        <div class="checks" id="f-tasks">
+          <label><input type="checkbox" value="replying to customer messages" checked> Customer messages</label>
+          <label><input type="checkbox" value="writing price quotes" checked> Price quotes</label>
+          <label><input type="checkbox" value="marketing and social media posts" checked> Marketing & posts</label>
+          <label><input type="checkbox" value="numbers, invoices and payment reminders"> Numbers & invoices</label>
+          <label><input type="checkbox" value="scheduling and reminders"> Scheduling</label>
+          <label><input type="checkbox" value="emails to suppliers, my accountant and offices"> Admin emails</label>
+          <label><input type="checkbox" value="explaining official letters and paperwork"> Paperwork</label>
+        </div>
+      </div>
+      <label>Anything it should never do or say? (optional) <input id="f-never" placeholder="e.g. never offer discounts, never promise dates"></label>
+    </div>
+
+    <div class="prompt">
+      <div class="prompt-top"><span>Your employee brief</span><button class="copy" id="copy" type="button">Copy brief</button></div>
+<pre id="prompt"></pre>
+      <div class="count" id="count"></div>
+    </div>
+    <p class="hint">The brief updates as you type. Everything stays in your browser, nothing is sent anywhere.</p>
+
+    <h2>Where to paste it (once)</h2>
+    <div class="where">
+      <div><b>ChatGPT</b><ol><li>Click your name or picture</li><li>Personalization → Custom instructions</li><li>Paste the brief and save</li></ol></div>
+      <div><b>Claude</b><ol><li>Create a new Project, name it after your business</li><li>Paste the brief into the project instructions</li><li>Start every work chat inside that project</li></ol></div>
+    </div>
+
+    <h2>Your first task for your new employee</h2>
+    <div class="prompt">
+      <div class="prompt-top"><span>Try this right after</span><button class="copy" id="copy2" type="button">Copy</button></div>
+<pre id="test">A new customer just wrote: "Hi! How much is it and when can I start?"
+Draft my reply.</pre>
+    </div>
+    <p class="hint">If the reply sounds like you and has your real prices, your employee is hired. 🎉</p>
+  </div>
+
+  <h2>What it looks like</h2>
+  <div class="example">
+    <div class="example-head">Example: <b>a small ceramics studio</b></div>
+    <div style="padding:16px;font-size:.92rem;display:grid;gap:10px">
+      <p style="color:var(--ink2)">Customer: "Hi! How much is it and when can I start?"</p>
+      <p style="background:var(--lime-soft);border-radius:14px 14px 14px 4px;padding:12px 14px">Hi Maya! A beginner class is $45, or $160 for a package of 4. Next one is Thursday at 6pm, want me to save you a spot? 🙂</p>
+      <p style="color:var(--ink2);font-size:.85rem">No explaining, no prices typed in. It already knew.</p>
+    </div>
+  </div>
+
+  <div class="next">
+    <h2>Next: give your employee a job</h2>
+    <p>Every week I hand one more task to AI and share the exact prompt.</p>
+    <a href="../">See the prompts</a>
+  </div>
+</div></main>
+
+<footer><div class="wrap">aiby.ro · <em>AI does the busywork. You do the work you love.</em></div></footer>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const v = (id, fallback) => ($(id).value.trim() || fallback);
+  function build() {
+    const tasks = [...document.querySelectorAll('#f-tasks input:checked')].map((c) => c.value);
+    const never = $('f-never').value.trim();
+    const lines = [
+      `You are my assistant for my small business. Think of yourself as my first employee.`,
+      ``,
+      `MY BUSINESS: ${v('f-biz', '[what you do]')}`,
+      `MY CUSTOMERS: ${v('f-cust', '[who they are]')}`,
+      `WHAT I OFFER AND PRICES: ${v('f-offer', '[your services and prices]')}`,
+      `HOW I TALK TO CUSTOMERS: ${v('f-tone', '[your tone]')}. Write in ${v('f-lang', '[language]')}.`,
+      ``,
+      `WHAT I WANT YOU TO TAKE OFF MY PLATE: ${tasks.length ? tasks.join(', ') : '[tasks]'}.`,
+      `I want to spend my time on the part of my work I love. Everything else, help me get it done fast.`,
+      ``,
+      `RULES:`,
+      `- Write like me, not like a company. Short, clear, human.`,
+      `- Use only my real prices and details. If something is missing, ask me one short question.`,
+      `- Give me a ready draft I can copy and send, not advice about it.`,
+      `- Never use phrases like "Dear valued customer" or "kindly".`,
+    ];
+    if (never) lines.push(`- Never: ${never}.`);
+    const text = lines.join('\n');
+    $('prompt').textContent = text;
+    const n = text.length;
+    $('count').textContent = n + ' characters' + (n > 1500 ? ' · ChatGPT custom instructions fit about 1,500, so shorten your answers a little' : '');
+    $('count').className = 'count' + (n > 1500 ? ' over' : '');
+  }
+  document.querySelectorAll('.fill input, .fill textarea').forEach((el) => el.addEventListener('input', build));
+  build();
+  function wire(btnId, srcId, label) {
+    const btn = $(btnId);
+    btn.addEventListener('click', async () => {
+      const text = $(srcId).innerText;
+      try { await navigator.clipboard.writeText(text); }
+      catch (e) { const t = document.createElement('textarea'); t.value = text; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); }
+      btn.textContent = 'Copied ✓'; btn.classList.add('done');
+      setTimeout(() => { btn.textContent = label; btn.classList.remove('done'); }, 2000);
+    });
+  }
+  wire('copy', 'prompt', 'Copy brief');
+  wire('copy2', 'test', 'Copy');
+</script>
+</body>
+</html>
