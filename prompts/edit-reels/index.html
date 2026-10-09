@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Your Reels With One Message | aiby.ro</title>
+<meta name="description" content="The exact message I send Claude Code to cut the pauses, add captions and export a reel. Copy, fill in, done.">
+<meta property="og:title" content="Edit your reels with one message">
+<meta property="og:description" content="Cut the pauses, add captions, export for Instagram. One message to Claude Code.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../prompts.css">
+<script src="../gate.js"></script>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="mark" href="../../"><img class="av" src="../../assets/avatar.jpg" alt="" width="34" height="34">aiby<span>.ro</span></a>
+  <a class="back" href="../">← All prompts</a>
+</div></header>
+
+<main><div class="wrap">
+  <div class="kicker">prompt</div>
+  <h1>Edit your reels with <span class="hl">one message</span></h1>
+  <p class="lead">This is the message I send Claude Code when I have a raw video. It cuts the pauses and the "umm"s, adds captions word by word and exports a reel that's ready for Instagram. You just watch it and post.</p>
+  <div class="facts"><span>⏱ 5 minutes</span><span>No editing app</span><span>Free prompt</span></div>
+
+  <h2>Before you start</h2>
+  <ol class="steps">
+    <li><b>Have Claude Code on your computer</b><small>Claude Code works with a paid Claude plan. Never used it? My <a href="../../claude/">free beginner guide</a> sets it up step by step, with a screen for every click.</small></li>
+    <li><b>Put your video in one folder</b><small>For example a folder called "reels" on your Desktop. A video of you talking works best.</small></li>
+    <li><b>Open that folder in Claude Code</b><small>Then paste the message below and press Enter.</small></li>
+  </ol>
+
+  <h2>Your prompt</h2>
+
+  <div class="gate">
+    <h3>Unlock the prompt</h3>
+    <p>Leave your email once and every prompt on aiby.ro opens for you. No spam, just new prompts.</p>
+    <form id="gate-form">
+      <label for="gate-email" style="position:absolute;left:-9999px">Email address</label>
+      <input id="gate-email" type="email" name="email_address" placeholder="Your email address" autocomplete="email" required>
+      <button type="submit">Show me the prompt</button>
+    </form>
+    <p class="msg" id="gate-msg" role="status"></p>
+    <p class="fine">Unsubscribe anytime.</p>
+  </div>
+
+  <div class="unlock-only">
+    <div class="fill">
+      <label>Your video file name <input id="f-file" placeholder="e.g. reel.mov"></label>
+      <label>Your caption font <input id="f-font" placeholder="e.g. Montserrat Bold"></label>
+      <label>Your brand color <input id="f-color" placeholder="e.g. lime green #C8F51E"></label>
+    </div>
+    <div class="prompt">
+      <div class="prompt-top"><span>Copy this</span><button class="copy" id="copy" type="button">Copy prompt</button></div>
+<pre id="prompt">I'm not technical, so explain every step in one short sentence.
+If you need to install a tool, tell me what it is and ask me first.
+
+In this folder there's a video called <span class="ph" data-f="f-file">[reel.mov]</span>. Turn it into a reel:
+1. Write down everything I say, word by word.
+2. Cut the silences and filler words like "umm". Keep it natural and never cut in the middle of a word.
+3. Add captions 2 to 3 words at a time, in <span class="ph" data-f="f-font">[my font]</span>, white, with the most important word in <span class="ph" data-f="f-color">[my brand color]</span>. Put them in the lower third, never over my face.
+4. Make it 9:16 (1080x1920) and a little warmer.
+5. Save it as reel_final.mp4 next to the original and tell me where it is.
+
+At the end, show me a short list of what you cut, so I can ask you to put anything back.</pre>
+    </div>
+    <p class="hint">Fill in the boxes above and the prompt updates itself. Or copy it as is and fill in the [brackets] in Claude Code.</p>
+  </div>
+
+  <h2>What you'll get back</h2>
+  <div class="example">
+    <div class="example-head">What Claude Code tells you (shortened)</div>
+    <div style="padding:16px;font-size:.92rem;display:grid;gap:8px;color:var(--ink2)">
+      <div>✓ I need a free video tool called ffmpeg. Can I install it? <b style="color:var(--ink)">→ you: yes</b></div>
+      <div>✓ Wrote down all 142 words</div>
+      <div>✓ Cut 11 pauses and 4 "umm"s (the video went from 48 to 36 seconds)</div>
+      <div>✓ Added captions in your font and color</div>
+      <div>✓ Saved <b style="color:var(--ink)">reel_final.mp4</b> in your reels folder</div>
+    </div>
+  </div>
+  <div class="tip"><b>Tip:</b> Not happy with something? Just write it like you'd tell a person: "the captions are too small" or "put back the part where I laugh". The first video takes a few extra minutes for setup. After that it's fast.</div>
+
+  <div class="next">
+    <h2>Want the next one?</h2>
+    <p>A new prompt for the busywork around your business, every week on Instagram.</p>
+    <a href="https://www.instagram.com/aiby.ro/" target="_blank" rel="noopener">Follow @aiby.ro</a> <a href="../../claude/" style="background:#fff;margin-left:8px">Claude Code beginner guide</a>
+  </div>
+</div></main>
+
+<footer><div class="wrap">aiby.ro · <em>AI does the busywork. You do the work you love.</em></div></footer>
+
+<script>
+  document.querySelectorAll('[data-f]').forEach((ph) => {
+    const input = document.getElementById(ph.dataset.f);
+    const original = ph.textContent;
+    input.addEventListener('input', () => {
+      const v = input.value.trim();
+      ph.textContent = v || original;
+      ph.className = v ? 'filled' : 'ph';
+    });
+  });
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    const text = document.getElementById('prompt').innerText;
+    try { await navigator.clipboard.writeText(text); }
+    catch (e) {
+      const t = document.createElement('textarea'); t.value = text; document.body.appendChild(t);
+      t.select(); document.execCommand('copy'); t.remove();
+    }
+    btn.textContent = 'Copied ✓'; btn.classList.add('done');
+    setTimeout(() => { btn.textContent = 'Copy prompt'; btn.classList.remove('done'); }, 2000);
+  });
+</script>
+</body>
+</html>
